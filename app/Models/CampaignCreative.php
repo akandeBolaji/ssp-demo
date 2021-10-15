@@ -9,6 +9,11 @@ class CampaignCreative extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'img_path',
+        'campaign_id'
+    ];
+
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
