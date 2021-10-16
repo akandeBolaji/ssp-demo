@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +13,10 @@ use App\Http\Controllers\Controller;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('app');
+});
 
-Route::get('/', [Controller::class, 'index']);
-
-Route::any('/{segment1?}/{segment2?}/{segment3?}', [Controller::class, 'index']);
+Route::get('/{segment1?}/{segment2?}/{segment3?}', function () {
+    return view('app');
+});
