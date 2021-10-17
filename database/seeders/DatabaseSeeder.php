@@ -4,6 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+use App\Models\{
+    Campaign,
+    CampaignCreative
+};
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Campaign::factory(5)
+        ->has(CampaignCreative::factory()->count(2), 'creatives')
+        ->create();
     }
 }
