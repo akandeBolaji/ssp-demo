@@ -9,13 +9,16 @@ use App\Models\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Campaign::with('creatives')->orderBy('id','desc')->get();
+        $campaigns = Cache::remember('campaigns', 3600, function () {
+            return Campaign::with('creatives')->orderBy('id','desc')->get();
+        });
         return response()->json($campaigns);
     }
 
@@ -62,7 +65,9 @@ class CampaignController extends Controller
 
     public function show($id)
     {
-        $campaign = Campaign::findOrFail($id);
+        $campaign = Cache::remember("campaign-{$id}", 3600, function () {
+            return Campaign::findOrFail($id);
+        });
         return response()->json($campaign);
     }
 
