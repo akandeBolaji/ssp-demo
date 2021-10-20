@@ -13,14 +13,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CampaignTest extends TestCase
 {
-    public function campaign_listing()
+    use WithFaker;
+
+    public function test_campaign_listing()
     {
         $response= $this->get('api/campaign/index');
 
         $response->assertStatus(200);
     }
 
-    public function create_campaign()
+    public function test_create_campaign()
     {
         $data = [
             'name'          => $this->faker->name,
@@ -41,7 +43,7 @@ class CampaignTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function update_campaign()
+    public function test_update_campaign()
     {
         $data = [
             'name'          => $this->faker->name,
